@@ -12,6 +12,8 @@ ENV PATH="/scripts:${PATH}"
 COPY install-module /scripts
 COPY run /scripts
 COPY genkeys /scripts
+COPY net-up /scripts
+COPY net-down /scripts
 RUN chmod 755 /scripts/*
 
 CMD ["run"]

@@ -1,0 +1,11 @@
+#!/bin/sh
+INTERFACE=$1
+if [ -z $INTERFACE ]
+then
+  echo "Please pass the interface of wireguard (ex: wg0)"
+  exit 1
+fi
+
+# accept only icmpv6 incoming connection
+ip6tables -A FORWARD -i eth0 -o $INTERFACE -p tcp --syn -j REJECT --reject-with tcp-reset
+ip6tables -A FORWARD -i eth0 -o $INTERFACE -p udp -m state --state NEW -j REJECT --reject-with icmp6-adm-prohibited
